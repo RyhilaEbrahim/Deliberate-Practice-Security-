@@ -25,12 +25,18 @@ namespace LetsChatApp.Web.Controllers
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, "User")
+                };
+
+
                 var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:44331",
-                    // TODO: NEEDS TO CHANGE TO CLIENT
-                    audience: "http://localhost:44331",
-                    claims: new List<Claim>(),
+                    "http://localhost:44331",
+                    "http://localhost:4200",
                     expires: DateTime.Now.AddMinutes(5),
+                    claims: claims,
                     signingCredentials: signinCredentials
                 );
 
