@@ -11,7 +11,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { HomeComponent } from './home/home.component';
 import { JwtHelper } from 'angular2-jwt';
 import { LoginService } from './login.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,13 +24,32 @@ import { HttpClient } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent},
-      { path: 'home', component: HomeComponent},
-      { path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService] }])
+      {
+        path: 'login',
+        component: LoginComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'logout',
+        component: LoginComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'messages',
+        component: MessagesComponent,
+        data: { title: 'Messages' },
+        canActivate: [AuthGuardService]
+      }
+    ])
   ],
   providers: [
-  JwtHelper, AuthGuardService, LoginService, HttpClient,
+    JwtHelper, AuthGuardService, LoginService, HttpClient
   ],
   bootstrap: [AppComponent]
 })

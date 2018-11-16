@@ -39,13 +39,10 @@ namespace LetsChatApp.Web
                         ValidateIssuerSigningKey = true,
 
                         ValidIssuer = "http://localhost:44331",
-                        ValidAudience = "http://localhost:44331",
+                        ValidAudience = "http://localhost:4200",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ourSecretKey123"))
                     };
                 });
-
-            services.AddMvc();
-
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
@@ -53,6 +50,10 @@ namespace LetsChatApp.Web
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
                 });
             });
+
+            services.AddMvc();
+
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,10 +68,12 @@ namespace LetsChatApp.Web
                 app.UseHsts();
             }
 
+            app.UseCors("EnableCORS");
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseCors("EnableCORS");
+          
+
         }
     }
 }

@@ -8,11 +8,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class MessagesComponent implements OnInit {
   messages: any;
+  error: any;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     const token = localStorage.getItem('jwt');
-    this.http.get('http://localhost:44331/api/messages', {
+    this.http.get('https://localhost:44331/api/messages', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
@@ -20,6 +22,7 @@ export class MessagesComponent implements OnInit {
     }).subscribe(response => {
       this.messages = response;
     }, err => {
+      this.error = JSON.stringify(err);
       console.log(err);
     });
   }
