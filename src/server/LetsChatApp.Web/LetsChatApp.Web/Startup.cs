@@ -23,7 +23,7 @@ namespace LetsChatApp.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -38,11 +38,12 @@ namespace LetsChatApp.Web
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = "http://localhost:44331",
-                        ValidAudience = "http://localhost:4200",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jhdfgg55587-dfgfghg558546-fghfghgfhfg5"))
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"]))
                     };
                 });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
@@ -52,8 +53,6 @@ namespace LetsChatApp.Web
             });
 
             services.AddMvc();
-
-          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
