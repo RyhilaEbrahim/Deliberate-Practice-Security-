@@ -14,7 +14,6 @@ namespace LetsChatApp.Web.Controllers
     public class AuthController : Controller
     {
         [HttpPost, Route("login")]
-        [EnableCors("EnableCORS")]
         public IActionResult Login([FromBody]LoginModel user)
         {
             if (user == null)
@@ -24,7 +23,7 @@ namespace LetsChatApp.Web.Controllers
 
             if (user.UserName == "me" && user.Password == "1234")
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jhdfgg55587-dfgfghg558546-fghfghgfhfg5"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var claims = new List<Claim>

@@ -10,10 +10,9 @@ namespace LetsChatApp.Web.Controllers
     {
         
         [HttpGet, Authorize(Roles = "User")]
-        [EnableCors("EnableCORS")]
-        public string Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return "HELLO WORLD!!!";
+            return new string[] { "message 1", "message 2", "messages 3" };
         }
     }
 }

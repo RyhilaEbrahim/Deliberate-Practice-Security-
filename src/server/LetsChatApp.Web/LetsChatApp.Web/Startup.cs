@@ -40,7 +40,7 @@ namespace LetsChatApp.Web
 
                         ValidIssuer = "http://localhost:44331",
                         ValidAudience = "http://localhost:4200",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ourSecretKey123"))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jhdfgg55587-dfgfghg558546-fghfghgfhfg5"))
                     };
                 });
             services.AddCors(options =>
@@ -70,7 +70,6 @@ namespace LetsChatApp.Web
 
             app.UseCors("EnableCORS");
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseMvc();
           
 
