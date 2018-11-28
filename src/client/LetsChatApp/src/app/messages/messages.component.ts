@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-messages',
@@ -7,22 +7,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-  messages: any;
-  error: any;
+  messages: any[];
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private messageService: MessageService) { }
 
   ngOnInit() {
-    const token = localStorage.getItem('jwt');
-    this.http.get('https://localhost:44331/api/messages', {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      })
-    }).subscribe(response => {
-      this.messages = response;
+    this.messageService.getMessages$()
+    .subscribe(messages => {
+      this.messages = messages;
     }, err => {
-      this.error = JSON.stringify(err);
       console.log(err);
     });
   }

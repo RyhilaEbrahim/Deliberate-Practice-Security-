@@ -1,6 +1,3 @@
-<p>
-    {{messages}}
-</p>
-<p>
-    {{error}}
-</p>
+<ul *ngFor="let message of messages">
+    <li>{{message}}</li>
+</ul>

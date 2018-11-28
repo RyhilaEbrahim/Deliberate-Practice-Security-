@@ -1,10 +1,12 @@
 <h1>Home Page</h1>
 
-<br>
+<nav>
+    <a routerLink="/messages" routerLinkActive="active">Messages</a>
+    <a routerLink="/logout" routerLinkActive="active" (click)="logout()">Logout</a>
+</nav>
+
 <div *ngIf="isUserAuthenticated()" style="color:blue;">
     <h2>
         YOU ARE LOGGED IN
     </h2>
 </div>
-
-<br>

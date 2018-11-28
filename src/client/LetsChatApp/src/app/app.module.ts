@@ -1,18 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { AuthGuardService } from './auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { RouterModule } from '@angular/router';
 import { MessagesComponent } from './messages/messages.component';
 import { HomeComponent } from './home/home.component';
 import { JwtHelper } from 'angular2-jwt';
-import { LoginService } from './login.service';
+import { LoginService } from './services/login.service';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -27,17 +25,19 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
     HttpClientModule,
     RouterModule.forRoot([
       {
+        path: '',
+        component: LoginComponent
+      },
+      {
         path: 'login',
-        component: LoginComponent,
-        pathMatch: 'full'
+        component: LoginComponent
       },
       {
         path: 'logout',
-        component: LoginComponent,
-        pathMatch: 'full'
+        component: LoginComponent
       },
       {
-        path: '',
+        path: 'home',
         component: HomeComponent
       },
       {
@@ -49,7 +49,11 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
     ])
   ],
   providers: [
-    JwtHelper, AuthGuardService, LoginService, HttpClient
+    JwtHelper, 
+    AuthGuardService, 
+    LoginService, 
+    HttpClient,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

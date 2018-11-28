@@ -33,10 +33,7 @@ namespace LetsChatApp.Web.Controllers
             {
                 return Ok(new { Token = CreateToken(user) });
             }
-            else
-            {
-                return Unauthorized();
-            }
+            return Unauthorized();
         }
 
         private bool IsUserValid(LoginModel user)
